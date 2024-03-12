@@ -5,3 +5,5 @@ Login Ke Admin
 </h2>
 <p>admin@gmail.com</p>
 <p>12345678</p>
+
+<p>Semua form dalam aplikasi belom ada validasi</p>
