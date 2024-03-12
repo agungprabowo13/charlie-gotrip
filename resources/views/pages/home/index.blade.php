@@ -10,7 +10,7 @@
                     <p class="py-6 text-slate-500">Thinking of taking a break from every day’s busy life? Planning to go
                         out of the country with your loved ones to have some fun and quality time in a const-effective
                         way?</p>
-                    <button class="btn bg-blue-500 text-white">Book Now</button>
+                    <a href="{{route('packages')}}" class="btn bg-blue-500 text-white">Book Now</a>
                 </div>
             </div>
         </div>

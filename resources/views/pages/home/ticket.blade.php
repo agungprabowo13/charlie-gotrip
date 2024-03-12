@@ -49,6 +49,9 @@
                 </div>
             </div>
         </form>
+        {{-- @dd($ticket->id) --}}
+        <a href="{{ route('cetak-ticket',$ticket->slug) }}"  target="_blank" class="btn btn-accent text-white">Cetak Tiket</a>
         @endforeach
     </div>
+
 </x-home-layout>

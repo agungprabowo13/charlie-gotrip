@@ -26,6 +26,7 @@ Route::get('/package/{id}',[HomeController::class,'package'])->name('package');
 Route::get('/package/order/{id}',[HomeController::class,'order'])->name('order');
 Route::post('/package/store_order',[HomeController::class,'store_order'])->name('store_order');
 Route::get('/package/ticket/{slug}',[HomeController::class,'ticket'])->name('ticket');
+Route::get('/package/cetak-ticket/{slug}',[HomeController::class,'cetakTicket'])->name('cetak-ticket');
 Route::get('/gallery',[HomeController::class,'gallery'])->name('gallery');
 
 Route::get('/dashboard', function () {

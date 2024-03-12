@@ -8,7 +8,8 @@ use App\Models\Testimonials;
 use App\Models\Tickets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use PHPUnit\Framework\Attributes\Ticket;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class HomeController extends Controller
 {
@@ -23,10 +24,10 @@ class HomeController extends Controller
 
     public function about()
     {
-        return view('pages.home.about',[
+        return view('pages.home.about', [
             // 'allImg' => Packages::all(),
-            'img1' => Packages::where('id',1)->get(),
-            'img2' => Packages::where('id',2)->get()
+            'img1' => Packages::where('id', 1)->get(),
+            'img2' => Packages::where('id', 2)->get()
         ]);
     }
 
@@ -50,28 +51,38 @@ class HomeController extends Controller
         ]);
     }
 
-    public function store_order(Request $request){
+    public function store_order(Request $request)
+    {
         $data = $request->all();
         $data['total'] = $data['price'] * $data['people'];
-        $data['slug'] = Str::slug($data['name'].'-'.date('d-m-Y H:i:s'));
+        $data['slug'] = Str::slug($data['name'] . '-' . date('d-m-Y H:i:s'));
         // dd($data);
         Tickets::create($data);
-        return redirect()->route('ticket',$data['slug']);
-        
+        return redirect()->route('ticket', $data['slug']);
     }
 
-    public function ticket($slug){
+    public function ticket($slug)
+    {
         // dd(Tickets::where('slug',$slug)->get());
-        $data = Tickets::where('slug' , $slug)->get();
-        return view('pages.home.ticket',[
+        $data = Tickets::where('slug', $slug)->get();
+        return view('pages.home.ticket', [
             'tickets' => $data
         ]);
     }
 
-    public function gallery(){
-        return view('pages.home.gallery',[
+    public function cetakTicket($slug)
+    {
+        $data = Tickets::where('slug', $slug)->get();
+        $pdf = Pdf::loadView('pages.home.cetak-ticket',[
+            'tickets' => $data
+        ]);
+        return $pdf->download($slug.'.pdf');
+    }
+
+    public function gallery()
+    {
+        return view('pages.home.gallery', [
             'allPackages' => Packages::all()
         ]);
     }
-
 }

@@ -2,8 +2,8 @@
     <div class="bg-[#FBFBFB] py-12 md:px-2 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="">
-                <p class="text-teal-400 font-medium mb-3">Travel Packages</p>
-                <h2 class="text-2xl font-medium text-slate-600 mb-2">All Travel Packages</h2>
+                <p class="text-teal-400 font-semibold mb-3">Travel Packages</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-500 mb-2">All Travel Packages</h2>
                 <p class="text-slate-500 max-w-2xl">Naturally head of the class when it comes to
                     luxury travel planning because we do more homework than anyone else.</p>
             </div>
