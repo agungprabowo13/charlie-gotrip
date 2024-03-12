@@ -1,7 +1,7 @@
 <x-home-layout>
     {{-- Start Hero --}}
     <div class="bg-[#FBFBFB]">
-        <div class="hero min-h-screen max-w-6xl mx-auto">
+        <div class="hero min-h-screen max-w-6xl mx-auto px-2 md:px-0">
             <div class="hero-content flex-col lg:flex-row gap-20">
                 <img src="{{ url('dist/images/header-image.png') }}" class="w-3/4" />
                 <div>
@@ -21,12 +21,12 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center">
                 <p class="text-teal-400 font-medium mb-3">3 steps for the perfect trip</p>
-                <h2 class="text-3xl font-medium text-slate-600 mb-2">Find Travel Perfection</h2>
-                <p class="max-w-4xl mx-auto text-slate-500">Naturally head of the class when it comes to luxury travel
+                <h2 class="text-3xl font-semibold text-slate-500  mb-2">Find Travel Perfection</h2>
+                <p class="max-w-2xl mx-auto text-slate-500 px-8 md:px-0">Naturally head of the class when it comes to luxury travel
                     planning because we do more
                     homework than anyone else.</p>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-14">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-14 px-10 md:px-0">
                 @foreach ($allServices as $service)
                 <div class="px-4 py-10 rounded border border-slate-100 text-center">
                     <img src="{{ url('storage',$service->thumbnail) }}" alt="" class="mx-auto mb-5">
@@ -39,11 +39,11 @@
     </div>
     {{-- End Services --}}
     {{-- Start Packages --}}
-    <div class="bg-[#FBFBFB] py-24 px-2">
+    <div class="bg-[#FBFBFB] py-24 px-8 md:px-2">
         <div class="max-w-6xl mx-auto">
             <div class="text-left">
-                <p class="text-teal-400 font-medium mb-3">Location</p>
-                <h2 class="text-3xl font-medium text-slate-600 mb-2">Suggested location</h2>
+                <p class="text-teal-400 font-medium mb-2 md:mb-3">Location</p>
+                <h2 class="text-3xl font-semibold text-slate-500 mb-2">Suggested location</h2>
                 <p class="max-w-2xl text-slate-500">Naturally head of the class when it comes to luxury travel planning
                     because we do more homework than anyone else.</p>
             </div>
@@ -71,11 +71,11 @@
     </div>
     {{-- End Packages --}}
     {{-- Start Testimoni --}}
-    <div class="py-24 px-2" id="testimonials">
+    <div class="py-24 px-8" id="testimonials">
         <div class="max-w-6xl mx-auto">
             <div class="text-center">
                 <p class="text-teal-400 font-medium mb-3">Testimoni</p>
-                <h2 class="text-3xl font-medium text-slate-600 mb-2">What our says about us</h2>
+                <h2 class="text-3xl font-semibold text-slate-500 mb-2">What our says about us</h2>
                 <p class="max-w-2xl text-slate-500 mx-auto">See and discover what adventurers tell us about their
                     journey with us, we always listen to whatever experience they have to say</p>
             </div>
@@ -90,7 +90,8 @@
                             <img src="{{ url('storage',$testimoni->thumbnail) }}" alt="" class="mx-auto mb-5">
                             <div class=" text-center py-10">
                                 <img src="{{ url('dist/images/petik.png') }}" alt="" class="mx-auto mb-5">
-                                <p class="max-w-2xl mx-auto mb-4 text-slate-500  px-10 border border-slate-100 py-10 rounded">
+                                <p
+                                    class="max-w-2xl mx-auto mb-4 text-slate-500  px-10 border border-slate-100 py-10 rounded">
                                     &ldquo;
                                     {{ $testimoni->description}}
                                     &rdquo;
@@ -104,8 +105,9 @@
                 </div>
 
                 <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev scale-50"></div>
-                <div class="swiper-button-next scale-50"></div>
+                <div class="swiper-button-prev scale-50" id="tombol-prev"></div>
+                <div class="swiper-button-next scale-50 " id="tombol-next"></div>
+                <div class="swiper-pagination"></div>
             </div>
 
         </div>

@@ -1,8 +1,8 @@
 <x-home-layout>
     <div class="bg-[#FBFBFB] py-12 px-2">
         <div class="max-w-6xl mx-auto">
-            <div class="flex gap-10">
-                <div class="w-4/6 p-2">
+            <div class="md:flex gap-10">
+                <div class="w-full md:w-4/6 p-2">
                     <p class="text-teal-400 font-medium mb-3 ">{{ $package->place }}</p>
                     <h2 class="text-2xl font-semibold text-slate-600 mb-2 ">{{ $package->title }}</h2>
                     <div class="flex gap-5 mb-3">
@@ -27,9 +27,9 @@
                     <img src="{{ url('storage/'.$package->banner) }}" alt="" class="w-full my-5 rounded">
                     <p class="text-slate-500">{{ $package->description }}</p>
                 </div>
-                <div class="w-2/6 ">
+                <div class="w-full md:w-2/6 mt-5 md:mt-0">
                     <div class="card w-full shadow-xl p-4 bg-white">
-                        <div class="flex gap-5 justify-between items-center">
+                        <div class="flex gap-5 justify-between md:items-center">
                             <img src="{{ url('storage/'.$package->thumbnail) }}" alt="" class="w-1/2 rounded-2xl">
                             <div class="w-1/2">
                                 <h2 class="text-xl font-semibold text-slate-600">Pesan {{ $package->title }} Sekarang</h2>

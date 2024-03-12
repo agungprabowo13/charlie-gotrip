@@ -5,3 +5,14 @@
 .menu li{
     @apply mx-1
 }
+
+.swiper-button-prev{
+    @apply hidden md:block
+}
+
+#tombol-prev{
+    @apply hidden md:block
+}
+#tombol-next{
+    @apply hidden md:block
+}

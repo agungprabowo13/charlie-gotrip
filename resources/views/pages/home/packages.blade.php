@@ -1,5 +1,5 @@
 <x-home-layout>
-    <div class="bg-[#FBFBFB] py-12 px-2">
+    <div class="bg-[#FBFBFB] py-12 md:px-2 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="">
                 <p class="text-teal-400 font-medium mb-3">Travel Packages</p>

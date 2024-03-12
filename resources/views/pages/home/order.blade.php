@@ -1,6 +1,6 @@
 <x-home-layout>
     <div>
-        <div class="max-w-4xl mx-auto my-10">
+        <div class="max-w-4xl mx-auto my-10 px-4 md:px-0">
             <form action="{{ route('store_order') }}" method="post">
                 @csrf
                 <div class="p-2">

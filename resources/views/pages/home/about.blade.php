@@ -1,9 +1,9 @@
 <x-home-layout>
     <section class="bg-white">
-        <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-            <div class="font-light  text-slate-500">
+        <div class="gap-16 items-center py-8 px-6 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+            <div class="font-light  text-slate-500 mt-5">
                 <p class="text-teal-400 font-semibold mb-3">About Us</p>
-                <h2 class="mb-4  tracking-tight text-4xl font-bold text-slate-600">"Embrace Adventure with Go Trip Travel!"
+                <h2 class="mb-4  tracking-tight text-3xl md:text-4xl font-bold text-slate-500">"Embrace Adventure with Go Trip Travel!"
                 </h2>
                 <p class="mb-4">
                     Go Trip Travel is your ultimate partner for unforgettable adventures. With a passion for exploration
