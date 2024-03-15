@@ -20,4 +20,9 @@ class Packages extends Model
         'thumbnail',
         'banner'
     ];
+
+    public function galleries()
+    {
+        return $this->hasMany(PackageGallery::class,  'package_id', 'id');
+    }
 }

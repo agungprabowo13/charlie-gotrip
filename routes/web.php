@@ -19,46 +19,50 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[HomeController::class,'index'])->name('/');
-Route::get('/about',[HomeController::class,'about'])->name('about');
-Route::get('/packages',[HomeController::class,'packages'])->name('packages');
-Route::get('/package/{id}',[HomeController::class,'package'])->name('package');
-Route::get('/package/order/{id}',[HomeController::class,'order'])->name('order');
-Route::post('/package/store_order',[HomeController::class,'store_order'])->name('store_order');
-Route::get('/package/ticket/{slug}',[HomeController::class,'ticket'])->name('ticket');
-Route::get('/package/cetak-ticket/{slug}',[HomeController::class,'cetakTicket'])->name('cetak-ticket');
-Route::get('/gallery',[HomeController::class,'gallery'])->name('gallery');
+Route::get('/', [HomeController::class, 'index'])->name('/');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/packages', [HomeController::class, 'packages'])->name('packages');
+Route::get('/package/{id}', [HomeController::class, 'package'])->name('package');
+Route::get('/package/order/{id}', [HomeController::class, 'order'])->name('order');
+Route::post('/package/store_order', [HomeController::class, 'store_order'])->name('store_order');
+Route::get('/package/ticket/{slug}', [HomeController::class, 'ticket'])->name('ticket');
+Route::get('/package/cetak-ticket/{slug}', [HomeController::class, 'cetakTicket'])->name('cetak-ticket');
+Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('dashboard')->middleware(['auth', 'verified', 'isAdmin'])->group(function () {
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::middleware('auth','verified')->group(function () {
-    Route::get('/dashboard/packages', [PackagesController::class, 'index'])->name('dashboard.packages');
-    Route::get('/dashboard/packages/create', [PackagesController::class, 'create'])->name('dashboard.packages.create');
-    Route::post('/dashboard/packages/store', [PackagesController::class, 'store'])->name('dashboard.packages.store');
-    Route::get('/dashboard/packages/edit/{id}', [PackagesController::class, 'edit'])->name('dashboard.packages.edit');
-    Route::put('/dashboard/packages/update/{id}', [PackagesController::class, 'update'])->name('dashboard.packages.update');
-    Route::get('/dashboard/packages/destroy/{id}', [PackagesController::class, 'destroy'])->name('dashboard.packages.destroy');
+    Route::prefix('packages')->group(function () {
+        Route::get('/', [PackagesController::class, 'index'])->name('dashboard.packages');
+        Route::get('/create', [PackagesController::class, 'create'])->name('dashboard.packages.create');
+        Route::post('/store', [PackagesController::class, 'store'])->name('dashboard.packages.store');
+        Route::get('/edit/{id}', [PackagesController::class, 'edit'])->name('dashboard.packages.edit');
+        Route::put('/update/{id}', [PackagesController::class, 'update'])->name('dashboard.packages.update');
+        Route::get('/destroy/{id}', [PackagesController::class, 'destroy'])->name('dashboard.packages.destroy');
+    });
+
+    Route::prefix('services')->group(function () {
+        Route::get('/', [ServicesController::class, 'index'])->name('dashboard.services');
+        Route::get('create', [ServicesController::class, 'create'])->name('dashboard.services.create');
+        Route::post('store', [ServicesController::class, 'store'])->name('dashboard.services.store');
+        Route::get('edit/{id}', [ServicesController::class, 'edit'])->name('dashboard.services.edit');
+        Route::put('update/{id}', [ServicesController::class, 'update'])->name('dashboard.services.update');
+        Route::get('destroy/{id}', [ServicesController::class, 'destroy'])->name('dashboard.services.destroy');
+    });
+
+    Route::prefix('testimonials')->group(function () {
+        Route::get('/', [TestimonialsController::class, 'index'])->name('dashboard.testimonials');
+        Route::get('/create', [TestimonialsController::class, 'create'])->name('dashboard.testimonials.create');
+        Route::post('/store', [TestimonialsController::class, 'store'])->name('dashboard.testimonials.store');
+        Route::get('/edit/{id}', [TestimonialsController::class, 'edit'])->name('dashboard.testimonials.edit');
+        Route::put('/update/{id}', [TestimonialsController::class, 'update'])->name('dashboard.testimonials.update');
+        Route::get('/destroy/{id}', [TestimonialsController::class, 'destroy'])->name('dashboard.testimonials.destroy');
+    });
 });
 
-Route::middleware('auth','verified')->group(function () {
-    Route::get('/dashboard/services', [ServicesController::class, 'index'])->name('dashboard.services');
-    Route::get('/dashboard/services/create', [ServicesController::class, 'create'])->name('dashboard.services.create');
-    Route::post('/dashboard/services/store', [ServicesController::class, 'store'])->name('dashboard.services.store');
-    Route::get('/dashboard/services/edit/{id}', [ServicesController::class, 'edit'])->name('dashboard.services.edit');
-    Route::put('/dashboard/services/update/{id}', [ServicesController::class, 'update'])->name('dashboard.services.update');
-    Route::get('/dashboard/services/destroy/{id}', [ServicesController::class, 'destroy'])->name('dashboard.services.destroy');
-});
 
-Route::middleware('auth','verified')->group(function () {
-    Route::get('/dashboard/testimonials', [TestimonialsController::class, 'index'])->name('dashboard.testimonials');
-    Route::get('/dashboard/testimonials/create', [TestimonialsController::class, 'create'])->name('dashboard.testimonials.create');
-    Route::post('/dashboard/testimonials/store', [TestimonialsController::class, 'store'])->name('dashboard.testimonials.store');
-    Route::get('/dashboard/testimonials/edit/{id}', [TestimonialsController::class, 'edit'])->name('dashboard.testimonials.edit');
-    Route::put('/dashboard/testimonials/update/{id}', [TestimonialsController::class, 'update'])->name('dashboard.testimonials.update');
-    Route::get('/dashboard/testimonials/destroy/{id}', [TestimonialsController::class, 'destroy'])->name('dashboard.testimonials.destroy');
-});
 
 
 Route::middleware('auth')->group(function () {
@@ -67,4 +71,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

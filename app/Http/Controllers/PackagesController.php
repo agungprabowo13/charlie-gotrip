@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PackageGallery;
 use App\Models\Packages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class PackagesController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard.packages.index',[
+        return view('pages.dashboard.packages.index', [
             'allPackages' => Packages::all()
         ]);
     }
@@ -32,9 +33,17 @@ class PackagesController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['thumbnail'] = $request->file('thumbnail')->storeAs('packages',Str::slug($request->title).'.jpg','public');
-        $data['banner'] = $request->file('banner')->storeAs('packages',Str::slug('article-'.$request->title).'.jpg','public');
         Packages::create($data);
+
+        $package = Packages::orderBy('id', 'DESC')->first();
+
+        foreach ($data['image'] as $key => $image) {
+            $image_file = $image->storeAs('packages', Str::slug('image-' . $request->title) . '-' . ++$key . '.jpg', 'public');
+            PackageGallery::create([
+                'package_id' => $package->id,
+                'image' => $image_file
+            ]);
+        }
         return redirect()->route('dashboard.packages');
     }
 
@@ -49,9 +58,9 @@ class PackagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
-        return view('pages.dashboard.packages.edit',[
+        return view('pages.dashboard.packages.edit', [
             'package' => Packages::find($id)
         ]);
     }
@@ -63,25 +72,23 @@ class PackagesController extends Controller
     {
         $data = $request->all();
 
-        if(!empty($data['thumbnail'])){
-            $data['thumbnail'] = $request->file('thumbnail')->storeAs('packages',Str::slug($request->title).'.jpg','public');
-        }else{
-            unset($data['thumbnail']);
-        }
-        if(!empty($data['banner'])){
-            $data['banner'] = $request->file('banner')->storeAs('packages',Str::slug('article-'.$request->title).'.jpg','public');
-        }else{
-            unset($data['banner']);
+        if (!empty($data['image'])) {
+            foreach ($data['image'] as $key => $image) {
+                $image_file = $image->storeAs('packages', Str::slug('image-' . $request->title) . '-' . ++$key . '.jpg', 'public');
+                PackageGallery::create([
+                    'package_id' => $id,
+                    'image' => $image_file
+                ]);
+            }
         }
         Packages::find($id)->update($data);
         return redirect()->route('dashboard.packages');
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         Packages::find($id)->delete();
         return redirect()->back();

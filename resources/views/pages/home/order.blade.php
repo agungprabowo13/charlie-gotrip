@@ -11,27 +11,39 @@
                         <div class="flex justify-beetwen items-center gap-5 mb-3 border p-2 rounded bg-white px-5">
                             <label for="title" class=" w-1/2 font-medium text-slate-600 ">Name</label>
                             <input type="text"
-                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold" value="{{ Auth::user()->name }}"  name="name"/>
+                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold"
+                                value="{{ Auth::user()->name }}" name="name" />
                         </div>
                         <div class="flex justify-beetwen items-center gap-5 mb-3 border p-2 rounded bg-white px-5">
                             <label for="title" class=" w-1/2 font-medium text-slate-600 ">Destination</label>
                             <input type="text"
-                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold" value="{{ $package->title }}"  name="destination"/>
+                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold"
+                                value="{{ $package->title }}" name="destination" />
                         </div>
                         <div class="flex justify-beetwen items-center gap-5 mb-3 border p-2 rounded bg-white px-5">
                             <label for="date" class=" w-1/2 font-medium text-slate-600 ">Date</label>
                             <input type="date"
-                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold" value="{{ $package->title }}" name="date"/>
+                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold"
+                                value="{{ $package->title }}" name="date" />
                         </div>
                         <div class="flex justify-beetwen items-center gap-5 mb-3 border p-2 rounded bg-white px-5">
                             <label for="people" class=" w-1/2 font-medium text-slate-600 ">Number of People</label>
-                            <input type="number"
-                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold" name="people" />
+                            <input type="number" id="people" value="1" min="1"
+                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold"
+                                name="people" onchange="getTotal()" />
                         </div>
                         <div class="flex justify-beetwen items-center gap-5 mb-3 border p-2 rounded bg-white px-5">
                             <label for="people" class=" w-1/2 font-medium text-slate-600 ">Price</label>
-                            <input type="text"
-                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold" value=" {{ $package->price }}" name="price"/>
+                            <input type="text" readonly
+                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold"
+                                value="Rp. {{ number_format($package->price) }}" />
+                            <input type="hidden" id="price" value=" {{ $package->price }}" name="price" />
+                        </div>
+                        <div class="flex justify-beetwen items-center gap-5 mb-3 border p-2 rounded bg-white px-5">
+                            <label for="people" class=" w-1/2 font-medium text-slate-600 ">Total</label>
+                            <input type="text" id="total" readonly
+                                class="form-input border-none rounded-lg w-1/2 input-bordered input font-semibold"
+                                value="Rp. {{ number_format($package->price) }}" />
                         </div>
                     </div>
                     <button type="submit" class="btn btn-accent w-full text-white mt-5 font-bold">Order Now</button>
@@ -39,7 +51,18 @@
             </form>
         </div>
     </div>
-    <x-footer>
+    <x-footer></x-footer>
+    <script>
+        function getTotal() {
+            var price = document.getElementById('price').value;
+            var people = document.getElementById('people').value;
+            var total = document.getElementById('total');
 
-    </x-footer>
+            var totalSemua = price * people;
+            total.value = Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(totalSemua);
+        }
+    </script>
 </x-home-layout>
